@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lojinha Virtual</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Função para buscar o arquivo JSON
+            async function fetchData() {
+                try {
+                    const response = await fetch('produtos.json');
+                    const data = await response.json();
+                    const categories = [...new Set(data.products.map(product => product.category))];
+                    renderCategories(categories, data.products);
+                    renderProducts(data.products);
+                } catch (error) {
+                    console.error('Erro ao carregar o JSON:', error);
+                }
+            }
+
+            // Função para renderizar as categorias
+            function renderCategories(categories, products) {
+                const categorySidebar = document.getElementById("category-sidebar");
+                const categoryTop = document.getElementById("category-top");
+
+                categories.forEach(category => {
+                    const displayCategory = category.replace(/_/g, ' ');
+                    // Lateral (sidebar)
+                    let listItem = document.createElement("li");
+                    let link = document.createElement("a");
+                    link.href = "#";
+                    link.textContent = displayCategory;
+                    link.addEventListener("click", () => renderProducts(products, category));  // Passar os produtos e a categoria ao clicar
+                    listItem.appendChild(link);
+                    categorySidebar.appendChild(listItem);
+
+                    // Topo (navbar)
+                    let button = document.createElement("button");
+                    button.classList.add("category");
+                    button.textContent = displayCategory;
+                    button.addEventListener("click", () => renderProducts(products, category));  // Passar os produtos e a categoria ao clicar
+                    categoryTop.appendChild(button);
+                });
+            }
+
+            // Função para renderizar os produtos
+            function renderProducts(products, filterCategory = null) {
+                const productList = document.getElementById("product-list");
+                productList.innerHTML = "";
+
+                // Filtrando os produtos pela categoria, caso tenha sido passado um filtro
+                const filteredProducts = filterCategory ? 
+                    products.filter(product => product.category === filterCategory) : 
+                    products;
+
+                // Renderizando os produtos filtrados
+                filteredProducts.forEach(product => {
+                    let productDiv = document.createElement("div");
+                    productDiv.classList.add("product");
+                    productDiv.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>${product.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</p>
+                        <button class="add-to-cart">+</button>
+                    `;
+                    productList.appendChild(productDiv);
+                });
+
+                updateArrows();
+            }
+
+            // Atualizar as setas de navegação
+            function updateArrows() {
+                const categoryTop = document.getElementById("category-top");
+                const prevBtn = document.querySelector(".prev");
+                const nextBtn = document.querySelector(".next");
+                const container = categoryTop.parentElement;
+                const isOverflowing = categoryTop.scrollWidth > container.clientWidth;
+                prevBtn.style.display = isOverflowing ? "block" : "none";
+                nextBtn.style.display = isOverflowing ? "block" : "none";
+            }
+
+            window.addEventListener("resize", updateArrows);
+            updateArrows();
+
+            // Carrinho
+            const cartButton = document.querySelector(".cart-button");
+            const cartSidebar = document.querySelector(".cart-sidebar");
+            const closeCartButton = document.querySelector(".cart-header button");
+            const cartItemsList = document.querySelector(".cart-items");
+            const checkoutButton = document.querySelector("#sendOrder");
+
+            let cart = [];
+
+            cartButton.addEventListener("click", () => {
+                cartSidebar.classList.toggle("active");
+            });
+
+            closeCartButton.addEventListener("click", () => {
+                cartSidebar.classList.remove("active");
+            });
+
+            // Adicionar produtos ao carrinho
+            document.addEventListener("click", (event) => {
+                if (event.target.classList.contains("add-to-cart")) {
+                    const productDiv = event.target.closest(".product");
+                    const productName = productDiv.querySelector("h3").textContent;
+                    const productPrice = parseFloat(productDiv.querySelector("p").textContent.replace("R$", "").trim());
+                    const productImage = productDiv.querySelector("img").src;
+
+                    const existingProduct = cart.find(item => item.name === productName);
+                    if (existingProduct) {
+                        existingProduct.quantity += 1;
+                    } else {
+                        cart.push({
+                            name: productName,
+                            price: productPrice,
+                            image: productImage,
+                            quantity: 1
+                        });
+                    }
+
+                    renderCart();
+                    showMessage(`${productName} adicionado ao carrinho`);
+                }
+            });
+
+            // Exibir a mensagem de "adicionado ao carrinho"
+            function showMessage(messageText) {
+                const message = document.createElement("div");
+                message.classList.add("added-to-cart-message");
+                message.textContent = messageText;
+                document.body.appendChild(message);
+
+                setTimeout(() => {
+                    message.classList.add("show");
+                }, 10);
+
+                setTimeout(() => {
+                    message.classList.remove("show");
+                }, 3000);
+            }
+
+            // Função para renderizar o carrinho
+            function renderCart() {
+                cartItemsList.innerHTML = "";
+                let total = 0;
+
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+
+                    const cartItem = document.createElement("div");
+                    cartItem.classList.add("cart-item");
+
+                    const decreaseButton = item.quantity > 1 ? 
+                        `<button class="decrease">-</button>` : 
+                        `<button class="delete">🗑️</button>`;  
+
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                        <div>
+                            <span>${item.name}</span>
+                            <span>
+                                ${decreaseButton} 
+                                ${item.quantity}
+                                <button class="increase">+</button>
+                            </span>
+                            <span>${itemTotal.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</span>
+                        </div>
+                    `;
+                    cartItemsList.appendChild(cartItem);
+                });
+
+                document.querySelector(".checkout span").textContent = `Valor Total: ${total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
+                document.querySelector(".checkout").style.display = total > 0 ? "block" : "none";
+            }
+
+            // Evento para clique nos botões do carrinho
+            cartItemsList.addEventListener("click", (event) => {
+                if (event.target.classList.contains("increase")) {
+                    const productName = event.target.closest(".cart-item").querySelector("span").textContent;
+                    const product = cart.find(item => item.name === productName);
+                    if (product) {
+                        product.quantity += 1;
+                        renderCart();
+                    }
+                }
+
+                if (event.target.classList.contains("decrease")) {
+                    const productName = event.target.closest(".cart-item").querySelector("span").textContent;
+                    const product = cart.find(item => item.name === productName);
+                    if (product && product.quantity > 1) {
+                        product.quantity -= 1;
+                        renderCart();
+                    }
+                }
+
+                if (event.target.classList.contains("delete")) {
+                    const productName = event.target.closest(".cart-item").querySelector("span").textContent;
+                    cart = cart.filter(item => item.name !== productName);
+                    renderCart();
+                }
+            });
+
+            // Finalizar pedido
+            checkoutButton.addEventListener("click", () => {
+                const name = document.getElementById("name").value;
+                const phone = document.getElementById("phone").value;
+
+                if (name && phone) {
+                    let message = `*Pedido do Cliente:*\nNome: ${name}\nTelefone: ${phone}\n\nItens:\n`;
+
+                    cart.forEach(item => {
+                        message += `${item.name} - Quantidade: ${item.quantity} - Total: R$ ${(item.price * item.quantity).toFixed(2)}\n`;
+                    });
+
+                    message += `\nTotal Geral: R$ ${cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}`;
+
+                    message = encodeURIComponent(message);
+
+                    const whatsappLink = `https://wa.me/5561994088040?text=${message}`;
+
+                    window.open(whatsappLink, '_blank');
+
+                    cart = [];
+                    renderCart();
+
+                    document.getElementById("name").value = "";
+                    document.getElementById("phone").value = "";
+                } else {
+                    alert("Por favor, preencha seu nome e telefone.");
+                }
+            });
+
+            fetchData();
+
+            // Adicionar o botão "Início"
+            document.getElementById("homeButton").addEventListener("click", function() {
+                window.location.href = "index.html"; // ou qualquer URL de página inicial desejada
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Menu Lateral -->
+        <aside class="sidebar">
+            <button class="home-button" id="homeButton">Início</button>
+            <ul>
+                <li class="box">
+                    <h3>Sobre Nós</h3>
+                    <p>VENDA DE PRODUTOS NO ATACADO E SEM GARANTIA</p>
+                </li>
+                <li class="box">
+                    <h3>Entre em Contato</h3>
+                    <p>Nosso WhatsApp <br><a href="https://wa.me/5561994088040" target="_blank">61 994088040</a><br></p>
+                </li>
+                <li class="box">
+                    <h3>Retirada</h3>
+                    <p>SHOPPING POPULAR DE CEILANDIA <br>Box 452<br></p>
+                </li>
+                <div id="category-sidebar"></div>
+            </ul>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <main class="content">
+            <nav class="categories">
+                <button class="prev" style="display: none;">&#9664;</button>
+                <div class="category-list" id="category-top"></div>
+                <button class="next" style="display: none;">&#9654;</button>
+            </nav>
+
+            <section class="products" id="product-list"></section>
+        </main>
+    </div>
+
+    <!-- Carrinho -->
+    <div class="cart-button">
+        🛒
+    </div>
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Carrinho</h3>
+            <button>&times;</button>
+        </div>
+        <div class="cart-items"></div>
+
+        <div class="checkout" style="display: none;">
+            <span>Total: R$ 0,00</span>
+            <h2>Finalizar Pedido</h2>
+            <input type="text" id="name" placeholder="Seu Nome">
+            <input type="text" id="phone" placeholder="Seu Telefone">
+            
+            <button id="sendOrder">Enviar Pedido</button>
+        </div>
+    </div>
+</body>
+</html>

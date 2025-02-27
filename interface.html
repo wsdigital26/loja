@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Lojinha Virtual</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], input[type="number"], input[type="file"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .message {
+            margin-top: 10px;
+            text-align: center;
+            color: green;
+            display: none;
+        }
+        .admin-panel {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Painel Administrativo -->
+        <div class="admin-panel">
+            <h1>Cadastrar Produto</h1>
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="category">Categoria</label>
+                    <select id="category" required>
+                        <option value="gamers">GAMERS</option>
+                        <option value="celulares">CELULARES</option>
+                        <option value="relogios">RELOGIOS</option>
+                        <option value="aparelhos_de_tv">APARELHOS DE TV</option>
+                        <option value="recargas">RECARGAS</option>
+                        <option value="teclados_e_mouses">TECLADOS E MOUSES</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="new-category">Ou crie uma nova categoria:</label>
+                    <input type="text" id="new-category" placeholder="Digite o nome da nova categoria">
+                </div>
+                <div class="form-group">
+                    <label for="product-name">Nome do Produto</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Preço (R$)</label>
+                    <input type="number" id="product-price" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-image">Imagem do Produto</label>
+                    <input type="file" id="product-image" accept="image/*" required>
+                </div>
+                <button type="submit">Cadastrar Produto</button>
+            </form>
+            <div class="message" id="message">Produto cadastrado com sucesso!</div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const category = document.getElementById('category').value;
+            const newCategory = document.getElementById('new-category').value.trim();
+            const name = document.getElementById('product-name').value;
+            const price = parseFloat(document.getElementById('product-price').value);
+            const image = document.getElementById('product-image').files[0];
+
+            if (!name || !price || !image) {
+                alert("Por favor, preencha todos os campos.");
+                return;
+            }
+
+            const categoryToUse = newCategory ? newCategory : category;
+
+            const formData = new FormData();
+            formData.append('category', categoryToUse);
+            formData.append('name', name);
+            formData.append('price', price);
+            formData.append('image', image);
+
+            fetch('http://127.0.0.1:5000/add-product', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('message').style.display = 'block';
+                    document.getElementById('product-form').reset();
+                } else {
+                    alert("Erro ao cadastrar produto. Tente novamente.");
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert("Erro ao cadastrar produto.");
+            });
+        });
+    </script>
+</body>
+</html>

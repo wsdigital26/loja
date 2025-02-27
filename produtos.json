@@ -1,0 +1,52 @@
+{
+    "products": [
+        {
+            "name": "BlueTv Anual",
+            "price": 150.0,
+            "category": "recargas",
+            "image": "static/images\\bluetv-anual.png"
+        },
+        {
+            "name": "Blue Tv mensal",
+            "price": 25.0,
+            "category": "recargas",
+            "image": "static/images\\bluetv-mensal.png"
+        },
+        {
+            "name": "Blue Tv Trimestral",
+            "price": 60.0,
+            "category": "recargas",
+            "image": "static/images\\bluetv-trimestral.png"
+        },
+        {
+            "name": "Cooler Fan Aerocool Cosmo 12 FRGB",
+            "price": 25.0,
+            "category": "gamers",
+            "image": "static/images\\cooler cosmo 12 rgb.webp"
+        },
+        {
+            "name": "Cooler Fan Aerocool Frost Molex 12 FRGB",
+            "price": 20.0,
+            "category": "gamers",
+            "image": "static/images\\Cooler Fan Aerocool Frost Molex 12 FRGB.webp"
+        },
+        {
+            "name": "UniTv V10",
+            "price": 280.0,
+            "category": "aparelhos_de_tv",
+            "image": "static/images\\whatsapp-image-2024-08-08-at-15-01-49-66b523f3972d0.webp"
+        },
+        {
+            "name": "MousePad Fortrek 40cm x 90cm",
+            "price": 45.0,
+            "category": "gamers",
+            "image": "static/images\\mousepad fortrek 104 40x90.jpg"
+        },
+        {
+            "name": "MousePad Fortrek ",
+            "price": 40.0,
+            "category": "gamers",
+            "image": "static/images\\mousepad fortrek 103 30x80.jpg"
+        }
+    ]
+}
