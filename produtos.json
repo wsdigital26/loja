@@ -7,28 +7,28 @@
             "image": "static/images\\bluetv-anual.png"
         },
         {
-            "name": "Blue Tv mensal",
+            "name": "BlueTv Mensal",
             "price": 25.0,
             "category": "recargas",
             "image": "static/images\\bluetv-mensal.png"
         },
         {
-            "name": "Blue Tv Trimestral",
-            "price": 60.0,
-            "category": "recargas",
-            "image": "static/images\\bluetv-trimestral.png"
+            "name": "Mouse USB OML 101",
+            "price": 10.0,
+            "category": "informatica",
+            "image": "static/images\\Mouse Fortrek OML-101.webp"
         },
         {
-            "name": "Cooler Fan Aerocool Cosmo 12 FRGB",
-            "price": 25.0,
+            "name": "Fonte Gamer ATX Fortrek Crusader 500W Preta",
+            "price": 115.0,
             "category": "gamers",
-            "image": "static/images\\cooler cosmo 12 rgb.webp"
+            "image": "static/images\\Fonte Gamer ATX Fortrek Crusader 500W Preta.webp"
         },
         {
-            "name": "Cooler Fan Aerocool Frost Molex 12 FRGB",
-            "price": 20.0,
+            "name": "Teclado Gamer Spider GK706 PretoVermelho",
+            "price": 40.0,
             "category": "gamers",
-            "image": "static/images\\Cooler Fan Aerocool Frost Molex 12 FRGB.webp"
+            "image": "static/images\\Teclado Gamer Fortrek Spider GK706 PretoVVermelho.webp"
         },
         {
             "name": "UniTv V10",
@@ -43,10 +43,76 @@
             "image": "static/images\\mousepad fortrek 104 40x90.jpg"
         },
         {
-            "name": "MousePad Fortrek ",
-            "price": 40.0,
+            "name": "MousePad Fortrek 30com x 80com",
+            "price": 35.0,
             "category": "gamers",
             "image": "static/images\\mousepad fortrek 103 30x80.jpg"
+        },
+        {
+            "name": "MousePad Fortrek 24cm x 32cm",
+            "price": 15.0,
+            "category": "gamers",
+            "image": "static/images\\MousePad fortrek 101.webp"
+        },
+        {
+            "name": "Headset Gamer Fortrek H2 P2 + USB Preto",
+            "price": 65.0,
+            "category": "gamers",
+            "image": "static/images\\Headset Gamer Fortrek H2 P2 + USB Preto.webp"
+        },
+        {
+            "name": "Fone de Ouvido Fortrek HSL102 ",
+            "price": 40.0,
+            "category": "informatica",
+            "image": "static/images\\Fone de Ouvido Fortrek HSL102 Multim\u00eddia Com Microfone Preto FK 739A.webp"
+        },
+        {
+            "name": "Mouse Gamer Fortrek Blackfire RGB",
+            "price": 40.0,
+            "category": "gamers",
+            "image": "static/images\\Mouse Gamer Fortrek Blackfire RGB.webp"
+        },
+        {
+            "name": "Cooler Fan Aerocool Frost Molex 12 FRGB",
+            "price": 20.0,
+            "category": "gamers",
+            "image": "static/images\\Cooler Fan Aerocool Frost Molex 12 FRGB.webp"
+        },
+        {
+            "name": "cooler cosmo 12 rgb",
+            "price": 25.0,
+            "category": "gamers",
+            "image": "static/images\\cooler cosmo 12 rgb.webp"
+        },
+        {
+            "name": "Fonte ATX Fortrek PWS-2003 200W 20+4P",
+            "price": 50.0,
+            "category": "informatica",
+            "image": "static/images\\Fonte ATX Fortrek PWS-2003 200W 20+4P FK420P.webp"
+        },
+        {
+            "name": "MousePad 18cm x 22cm",
+            "price": 6.0,
+            "category": "informatica",
+            "image": "static/images\\MOUSE PAD FORTREK BAP102 PT.webp"
+        },
+        {
+            "name": "TECLADO GAMER MECAN BRIGHT GTC564 PT",
+            "price": 140.0,
+            "category": "gamers",
+            "image": "static/images\\TECLADO GAMER MECAN BRIGHT GTC564 PT.webp"
+        },
+        {
+            "name": "TECLADO STD USB FORTREK FK325K PT",
+            "price": 28.0,
+            "category": "informatica",
+            "image": "static/images\\TECLADO STD USB FORTREK FK325K PT.webp"
+        },
+        {
+            "name": "Kit 3 Coolers Aerocool Duo 12 Pro ARGB + Hub + Controle",
+            "price": 180.0,
+            "category": "gamers",
+            "image": "static/images\\Kit Com 3 Coolers Aerocool Duo 12 Pro ARGB + Hub + Controle.webp"
         }
     ]
 }
