@@ -113,6 +113,30 @@
             "price": 180.0,
             "category": "gamers",
             "image": "static/images\\Kit Com 3 Coolers Aerocool Duo 12 Pro ARGB + Hub + Controle.webp"
+        },
+        {
+            "name": "RedPlay Anual",
+            "price": 150.0,
+            "category": "recargas",
+            "image": "static/images\\redplay-anual.png"
+        },
+        {
+            "name": "RedPlay Mensal",
+            "price": 25.0,
+            "category": "recargas",
+            "image": "static/images\\redplay-mensal.png"
+        },
+        {
+            "name": "UniTv Mensal",
+            "price": 20.0,
+            "category": "recargas",
+            "image": "static/images\\UniTv Mensal.jpg"
+        },
+        {
+            "name": "UniTv Anual",
+            "price": 100.0,
+            "category": "recargas",
+            "image": "static/images\\UniTv Anual.jpg"
         }
     ]
 }
