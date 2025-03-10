@@ -2,13 +2,13 @@
     "products": [
         {
             "name": "BlueTv Anual",
-            "price": 150.0,
+            "price": 100.0,
             "category": "recargas",
             "image": "static/images\\bluetv-anual.png"
         },
         {
             "name": "BlueTv Mensal",
-            "price": 25.0,
+            "price": 20.0,
             "category": "recargas",
             "image": "static/images\\bluetv-mensal.png"
         },
@@ -116,13 +116,13 @@
         },
         {
             "name": "RedPlay Anual",
-            "price": 150.0,
+            "price": 105.0,
             "category": "recargas",
             "image": "static/images\\redplay-anual.png"
         },
         {
             "name": "RedPlay Mensal",
-            "price": 25.0,
+            "price": 20.0,
             "category": "recargas",
             "image": "static/images\\redplay-mensal.png"
         },
