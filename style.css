@@ -328,3 +328,36 @@ body {
         grid-template-columns: 1fr; /* Exibe 1 produto por linha */
     }
 }
+/* Estilo para o botão com a classe .home-button */
+button.home-button {
+    background-color: #f7c800; /* Amarelo semelhante à sidebar */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda padrão */
+    padding: 14px 32px; /* Espaçamento interno do botão */
+    font-size: 20px; /* Tamanho da fonte (ajustado para melhor proporção) */
+    font-weight: bold; /* Texto em negrito */
+    text-align: center; /* Alinha o texto no centro */
+    cursor: pointer; /* Cursor de mão ao passar sobre o botão */
+    border-radius: 8px; /* Bordas arredondadas */
+    transition: background-color 0.3s, transform 0.3s ease; /* Transições suaves */
+    width: 100%; /* Faz o botão ter a mesma largura das caixinhas */
+    box-sizing: border-box; /* Inclui padding e borda no cálculo do tamanho */
+}
+
+/* Efeito ao passar o mouse sobre o botão */
+button.home-button:hover {
+    background-color: #ffcc00; /* Amarelo mais suave quando passar o mouse */
+    transform: scale(1.05); /* Aumenta um pouco o tamanho do botão */
+}
+
+/* Efeito quando o botão é pressionado */
+button.home-button:active {
+    background-color: #e6b800; /* Cor de fundo mais escura quando clicado */
+    transform: scale(0.98); /* Diminui um pouco o tamanho ao clicar */
+}
+
+/* Foca no botão ao ser selecionado (como ao pressionar Tab) */
+button.home-button:focus {
+    outline: none; /* Remove o contorno padrão do foco */
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.6); /* Adiciona uma sombra amarela ao focar */
+}
